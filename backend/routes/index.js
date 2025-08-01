@@ -24,6 +24,9 @@ const searchProduct = require('../controller/product/searchProduct')
 const filterProductController = require('../controller/product/filterProduct')
 const passwordStrengthController = require('../controller/user/passwordStrength')
 
+// Import brute-force prevention middleware
+const { loginRateLimit, speedLimiter, bruteForcePrevention } = require('../middleware/rateLimiter')
+
 // Payment controllers
 const { createPaymentIntent, createCheckoutSession, verifyPayment, processPaymentSuccess, getStripeConfig } = require('../controller/payment/stripePayment')
 
@@ -31,7 +34,7 @@ const { createPaymentIntent, createCheckoutSession, verifyPayment, processPaymen
 const { getUserOrders, getOrderDetails, getOrderStats } = require('../controller/order/orderController')
 
 router.post("/signup", userSignUpController)
-router.post("/signin", userSignInController)
+router.post("/signin", loginRateLimit, speedLimiter, bruteForcePrevention, userSignInController)
 router.post("/password-strength", passwordStrengthController)
 router.get("/user-details", authToken, userDetailsController)
 router.get("/userLogout", userLogout)
