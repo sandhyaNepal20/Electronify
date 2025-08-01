@@ -228,8 +228,8 @@ const SignUp = () => {
                             {/* Password Match Indicator */}
                             {data.confirmPassword && (
                                 <div className={`mt-1 text-sm ${data.password === data.confirmPassword
-                                        ? 'text-green-600'
-                                        : 'text-red-600'
+                                    ? 'text-green-600'
+                                    : 'text-red-600'
                                     }`}>
                                     {data.password === data.confirmPassword
                                         ? '✓ Passwords match'
@@ -243,8 +243,8 @@ const SignUp = () => {
                             type='submit'
                             disabled={isSubmitting || !passwordStrength.isValid || data.password !== data.confirmPassword}
                             className={`px-6 py-2 w-full max-w-[200px] rounded-full transition-all mx-auto block mt-6 font-medium ${isSubmitting || !passwordStrength.isValid || data.password !== data.confirmPassword
-                                    ? 'bg-gray-400 cursor-not-allowed text-gray-600'
-                                    : 'bg-red-600 hover:bg-red-700 text-white hover:scale-105'
+                                ? 'bg-gray-400 cursor-not-allowed text-gray-600'
+                                : 'bg-red-600 hover:bg-red-700 text-white hover:scale-105'
                                 }`}
                         >
                             {isSubmitting ? 'Creating Account...' : 'Sign Up'}
