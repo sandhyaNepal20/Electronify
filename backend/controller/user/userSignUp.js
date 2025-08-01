@@ -2,7 +2,6 @@ const userModel = require("../../models/userModel")
 const bcrypt = require('bcryptjs');
 const { validatePassword, isPasswordRecentlyUsed } = require('../../helpers/passwordValidator');
 
-
 async function userSignUpController(req, res) {
     try {
         const { email, password, name } = req.body
@@ -47,6 +46,7 @@ async function userSignUpController(req, res) {
             ...req.body,
             role: "GENERAL",
             password: hashPassword,
+            isEmailVerified: true,
             passwordHistory: [{
                 password: hashPassword,
                 createdAt: new Date()
@@ -65,6 +65,7 @@ async function userSignUpController(req, res) {
             email: saveUser.email,
             role: saveUser.role,
             profilePic: saveUser.profilePic,
+            isEmailVerified: saveUser.isEmailVerified,
             createdAt: saveUser.createdAt
         };
 
@@ -72,9 +73,10 @@ async function userSignUpController(req, res) {
             data: userResponse,
             success: true,
             error: false,
-            message: "User created Successfully!"
+            message: "Account created successfully!",
+            requiresVerification: false,
+            emailSent: false
         })
-
 
     } catch (err) {
         res.json({
